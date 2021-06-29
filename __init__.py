@@ -41,7 +41,7 @@ module = GetParams("module")
 try:
     if (module == "classify_folder"):
     
-        API_URL = 'http://72.14.178.153:5000'
+        API_URL = 'http://0.0.0.0:5000'
 
         folderToClassify = GetParams("folderToClassify") + "/**/*"
 
