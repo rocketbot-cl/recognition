@@ -50,7 +50,6 @@ try:
             separator = '/'
             fileName = (fileToClassify.split('/')[-1])
             fileExtension = (fileName.split('.')[-1])
-            print(fileExtension)
 
             if (fileExtension == "pdf"):
                 image = convert_from_path(fileToClassify)
@@ -69,10 +68,8 @@ try:
                 newFile = open(newPathFile, 'rb')
                 onlyTheName = newNameFile.split('/')[-1]
 
-
                 response = requests.post('{}/files/{}'.format(API_URL, onlyTheName), data=newFile)
                 realResponse = eval(response.content.decode(encoding='latin-1'))
-                # realResponse = ['Namecheap; Inc:', 'Netflix,', 'namecheap', 'Price', 'Phoenix, AZ 85034', 'USA', 'www.namecheap.com']
                 listaPalabras = GetParams("wordList")
                 wordList = open(listaPalabras, "r")
 
@@ -84,16 +81,11 @@ try:
                     wordListWithoutN.append(cadaPalabra.strip())
 
                 countWords = 0
-                print(realResponse)
                 for eachWord in realResponse:
                     for eachWordClassify in wordListWithoutN:
                         if ((eachWord.find(eachWordClassify) == 0) and (eachWordClassify != "")):
-                            print("encontrado, mira")
-                            print(eachWord)
-                            print(eachWordClassify)
                             countWords += 1
 
-                # Is this good?
                 half = len(wordListWithoutN)/2
                 folderToSave = GetParams("folderToSave")
                 if (countWords > half):
@@ -117,13 +109,9 @@ try:
                     wordListWithoutN.append(cadaPalabra.strip())
 
                 countWords = 0
-                print(realResponse)
                 for eachWord in realResponse:
                     for eachWordClassify in wordListWithoutN:
                         if ((eachWord.find(eachWordClassify) == 0) and (eachWordClassify != "")):
-                            print("encontrado, mira")
-                            print(eachWord)
-                            print(eachWordClassify)
                             countWords += 1
 
                 # Is this good?
