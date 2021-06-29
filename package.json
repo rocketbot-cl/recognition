@@ -1,9 +1,9 @@
 {
 
   "author": "Caleb Cipra",
-  "description": "Módulo para leer imágenes con OCR y AI",
+  "description": "Módulo para clasificar imágenes con OCR y AI",
   "disclaimer": "THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-  "version": "0.1",
+  "version": "1.0",
   "license": "MIT",
   "homepage": "http://rocketbot.co",
   "linux": true,
@@ -11,7 +11,9 @@
   "mac": false,
   "docker": true,
   "name": "ocrWithAI",
-  "dependencies": {},
+  "dependencies": {
+      "pdf2image": "1.16.0"
+  },
   "title": {
     "en": "ocrWithAI",
     "es": "ocrWithAI"
