@@ -135,7 +135,7 @@ try:
                 if (countWords > 0):
                     if not os.path.exists(folderToSave):
                         os.makedirs(folderToSave)
-                    os.rename(newPathFile, f"{folderToSave}/{fileName}")
+                    os.rename(fileToClassify, f"{folderToSave}/{fileName}")
                     
 
 
