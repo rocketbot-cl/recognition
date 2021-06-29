@@ -96,19 +96,16 @@ try:
                 # Is this good?
                 half = len(wordListWithoutN)/2
                 folderToSave = GetParams("folderToSave")
-                if (countWords > 0):
+                if (countWords > half):
                     if not os.path.exists(folderToSave):
                         os.makedirs(folderToSave)
                     os.rename(newPathFile, f"{folderToSave}/{onlyTheName}")
             
             elif (fileExtension == "png" or fileExtension == "jpg"):
-                # print(asd)
-                print(fileName)
+
                 newFile = open(fileToClassify, 'rb')
-                print(newFile)
                 response = requests.post('{}/files/{}'.format(API_URL, fileName), data=newFile)
                 realResponse = eval(response.content.decode(encoding='latin-1'))
-                # realResponse = ['Namecheap; Inc:', 'Netflix,', 'namecheap', 'Price', 'Phoenix, AZ 85034', 'USA', 'www.namecheap.com']
                 listaPalabras = GetParams("wordList")
                 wordList = open(listaPalabras, "r")
 
@@ -132,34 +129,10 @@ try:
                 # Is this good?
                 half = len(wordListWithoutN)/2
                 folderToSave = GetParams("folderToSave")
-                if (countWords > 0):
+                if (countWords > half):
                     if not os.path.exists(folderToSave):
                         os.makedirs(folderToSave)
                     os.rename(fileToClassify, f"{folderToSave}/{fileName}")
-                    
-
-
-                
-                
-                
-
-
-
-        
-
-
-        # fileToUpload = GetParams('fileToUpload')
-        # files = open(fileToUpload, 'rb')
-        # fileName = (fileToUpload.split('/')[-1])
-        # fileExtension = (fileName.split(',')[-1])
-
-
-
-        # response = requests.post('{}/files/{}'.format(API_URL, fileName), data=files)
-        # realResponse = eval(response.content.decode(encoding='latin-1'))
-
-        # whereToStore = GetParams('whereToStore')
-        # SetVar(whereToStore, realResponse)
 
 except Exception as e:
     print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
