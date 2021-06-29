@@ -50,11 +50,12 @@ try:
             separator = '/'
             fileName = (fileToClassify.split('/')[-1])
             fileExtension = (fileName.split('.')[-1])
+            print(fileExtension)
 
             if (fileExtension == "pdf"):
                 image = convert_from_path(fileToClassify)
-                count = 0
                 # For documents more than 1 page
+                # count = 0
                 # for page in image:
                 #     newNameFile = fileToClassify.replace("." + fileExtension, f"[{count}].jpg")
                 #     (page.save(str(newNameFile), "JPEG"))
@@ -99,6 +100,42 @@ try:
                     if not os.path.exists(folderToSave):
                         os.makedirs(folderToSave)
                     os.rename(newPathFile, f"{folderToSave}/{onlyTheName}")
+            
+            elif (fileExtension == "png" or fileExtension == "jpg"):
+                # print(asd)
+                print(fileName)
+                newFile = open(fileToClassify, 'rb')
+                print(newFile)
+                response = requests.post('{}/files/{}'.format(API_URL, fileName), data=newFile)
+                realResponse = eval(response.content.decode(encoding='latin-1'))
+                # realResponse = ['Namecheap; Inc:', 'Netflix,', 'namecheap', 'Price', 'Phoenix, AZ 85034', 'USA', 'www.namecheap.com']
+                listaPalabras = GetParams("wordList")
+                wordList = open(listaPalabras, "r")
+
+                w = []
+                w = wordList.readlines()
+
+                wordListWithoutN = []
+                for cadaPalabra in w:
+                    wordListWithoutN.append(cadaPalabra.strip())
+
+                countWords = 0
+                print(realResponse)
+                for eachWord in realResponse:
+                    for eachWordClassify in wordListWithoutN:
+                        if ((eachWord.find(eachWordClassify) == 0) and (eachWordClassify != "")):
+                            print("encontrado, mira")
+                            print(eachWord)
+                            print(eachWordClassify)
+                            countWords += 1
+
+                # Is this good?
+                half = len(wordListWithoutN)/2
+                folderToSave = GetParams("folderToSave")
+                if (countWords > 0):
+                    if not os.path.exists(folderToSave):
+                        os.makedirs(folderToSave)
+                    os.rename(newPathFile, f"{folderToSave}/{fileName}")
                     
 
 

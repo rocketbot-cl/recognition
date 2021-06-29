@@ -41,8 +41,8 @@
                     "en": "C:\\Users\\Robot\\Desktop"
                 },
                 "title": {
-                    "es": "Imagen a leer",
-                    "en": "Image for reading"
+                    "es": "Carpeta donde estan las imagenes a leer",
+                    "en": "Folder where images for reading are"
                 },
                 "id": "folderToClassify",
                 "css": "col-md-12"
@@ -67,8 +67,8 @@
                     "en": "Path to file with words for classification"
                 },
                 "title": {
-                    "es": "Seleccionar un archivo:",
-                    "en": "Select a file:"
+                    "es": "Seleccionar un archivo con palabras para filtrar:",
+                    "en": "Select a file with words to filter with:"
                 },
                 "help": {
                     "es": "Ruta donde está el archivo",
