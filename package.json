@@ -77,7 +77,7 @@
                     "en": "Path to file"
                 },
                 "id": "wordList",
-                "css": "col-md-6"
+                "css": "col-md-12"
             }
         ]
       },
