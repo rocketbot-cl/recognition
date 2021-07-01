@@ -39,7 +39,7 @@ from pdf2image import convert_from_path, convert_from_bytes
 module = GetParams("module")
 
 try:
-    if (module == "classify_folder"):
+    if (module == "folder_recognition"):
 
         folderToCompare = GetParams("folderToCompare") + "/**/*"
         result = GetParams("folderToCompare") + "/result.ini"
