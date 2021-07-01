@@ -25,104 +25,182 @@ Para instalar librerias se debe ingresar por terminal a la carpeta "libs"
 """
 import os
 import sys
-import requests
 import subprocess
+import cv2
 from glob import glob
 
-
 base_path = tmp_global_obj["basepath"]
-cur_path = base_path + 'modules' + os.sep + 'ocrWithAI' + os.sep + 'libs' + os.sep
+cur_path = base_path + 'modules' + os.sep + 'classify' + os.sep + 'libs' + os.sep
 sys.path.append(cur_path)
 
+import numpy as np
 from pdf2image import convert_from_path, convert_from_bytes
-
+        
 module = GetParams("module")
 
 try:
     if (module == "classify_folder"):
-    
-        API_URL = 'http://0.0.0.0:5000'
 
-        folderToClassify = GetParams("folderToClassify") + "/**/*"
+        folderToCompare = GetParams("folderToCompare") + "/**/*"
+        result = GetParams("folderToCompare") + "/result.ini"
+        
+        imageToSearch = GetParams("imageToSearch")
 
+        separator = '/'
+        imageName = (imageToSearch.split('/')[-1])
+        imageExtension = (imageName.split('.')[-1])
+        imageToSearchIn = None
+        newPathImage = None
 
-        for fileToClassify in glob(folderToClassify, recursive=True):
-            separator = '/'
-            fileName = (fileToClassify.split('/')[-1])
-            fileExtension = (fileName.split('.')[-1])
-
-            if (fileExtension == "pdf"):
-                image = convert_from_path(fileToClassify)
-                # For documents more than 1 page
-                # count = 0
-                # for page in image:
-                #     newNameFile = fileToClassify.replace("." + fileExtension, f"[{count}].jpg")
-                #     (page.save(str(newNameFile), "JPEG"))
-                #     count += 1
-                newNameFile = fileToClassify.replace(fileExtension, "png")
-                image[0].save(newNameFile, "PNG")
-                
-                a = fileToClassify.split('/')
-                a[-1] = newNameFile.split('/')[-1]
-                newPathFile = separator.join(a)
-                newFile = open(newPathFile, 'rb')
-                onlyTheName = newNameFile.split('/')[-1]
-
-                response = requests.post('{}/files/{}'.format(API_URL, onlyTheName), data=newFile)
-                realResponse = eval(response.content.decode(encoding='latin-1'))
-                listaPalabras = GetParams("wordList")
-                wordList = open(listaPalabras, "r")
-
-                w = []
-                w = wordList.readlines()
-
-                wordListWithoutN = []
-                for cadaPalabra in w:
-                    wordListWithoutN.append(cadaPalabra.strip())
-
-                countWords = 0
-                for eachWord in realResponse:
-                    for eachWordClassify in wordListWithoutN:
-                        if ((eachWord.find(eachWordClassify) == 0) and (eachWordClassify != "")):
-                            countWords += 1
-
-                half = len(wordListWithoutN)/2
-                folderToSave = GetParams("folderToSave")
-                if (countWords > half):
-                    if not os.path.exists(folderToSave):
-                        os.makedirs(folderToSave)
-                    os.rename(newPathFile, f"{folderToSave}/{onlyTheName}")
+        if (imageExtension == "pdf"):
+            image = convert_from_path(imageToSearch)
+            newNameImage = imageToSearch.replace(imageExtension, "png")
+            image[0].save(newNameImage, "PNG")
             
-            elif (fileExtension == "png" or fileExtension == "jpg"):
+            a = imageToSearch.split('/')
+            a[-1] = newNameImage.split('/')[-1]
+            newPathImage = separator.join(a)
+            imageToSearchIn = cv2.imread(newNameImage)
+        else:
+            imageToSearchIn = cv2.imread(imageToSearch)
 
-                newFile = open(fileToClassify, 'rb')
-                response = requests.post('{}/files/{}'.format(API_URL, fileName), data=newFile)
-                realResponse = eval(response.content.decode(encoding='latin-1'))
-                listaPalabras = GetParams("wordList")
-                wordList = open(listaPalabras, "r")
 
-                w = []
-                w = wordList.readlines()
+        for fileToCompareWith in glob(folderToCompare, recursive=True):
+            if(fileToCompareWith != result):
 
-                wordListWithoutN = []
-                for cadaPalabra in w:
-                    wordListWithoutN.append(cadaPalabra.strip())
+                imageToCompareWith = cv2.imread(fileToCompareWith)
 
-                countWords = 0
-                for eachWord in realResponse:
-                    for eachWordClassify in wordListWithoutN:
-                        if ((eachWord.find(eachWordClassify) == 0) and (eachWordClassify != "")):
-                            countWords += 1
+                # Create our ORB detector and detect keypoints and descriptors
+                sift = cv2.SIFT_create()
 
-                # Is this good?
-                half = len(wordListWithoutN)/2
-                folderToSave = GetParams("folderToSave")
-                if (countWords > half):
-                    if not os.path.exists(folderToSave):
-                        os.makedirs(folderToSave)
-                    os.rename(fileToClassify, f"{folderToSave}/{fileName}")
+                # Find the key points and descriptors with ORB
+                keypoints1, descriptors1 = sift.detectAndCompute(imageToSearchIn, None)
+                keypoints2, descriptors2 = sift.detectAndCompute(imageToCompareWith, None)
+
+                bf = cv2.BFMatcher()
+                matches = bf.knnMatch (descriptors2, descriptors1,k=2)
+
+                good_matches = []
+
+                for m1, m2 in matches:
+                    if (m1.distance < 0.6*m2.distance):
+                        good_matches.append([m1])
+
+                if ((len(good_matches) > 20)):
+                    varWhereToSaveIn = GetParams("varWhereToSaveIn")
+                    file = open(result, "r")
+                    fileRead = file.read()
+                    SetVar(varWhereToSaveIn, fileRead)
+                    file.close()
+                    # SIFT_matches = cv2.drawMatchesKnn(imageToCompareWith, keypoints2, imageToSearchIn, keypoints1, good_matches, None, flags=2)
+                    # cv2.imwrite("/path/to/save/myresult.png", SIFT_matches)
+                    if (newPathImage != None):
+                        os.remove(newPathImage)
+                    break
+
+        if (newPathImage != None):
+            os.remove(newPathImage)
 
 except Exception as e:
     print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
     PrintException()
     raise e
+
+
+
+        # imageToSearchIn = cv2.imread(imageToSearch)
+
+
+
+        # imageToSearchFor = cv2.imread(imageToSearch)
+
+        # img1_gray = cv2.cvtColor(imageToSearchFor, cv2.COLOR_BGR2GRAY)
+
+
+        # for fileToClassify in glob(folderToClassify, recursive=True):
+
+        #     separator = '/'
+        #     fileName = (fileToClassify.split('/')[-1])
+        #     fileExtension = (fileName.split('.')[-1])
+
+        #     if (fileExtension == "png" or fileExtension == "jpg"):
+                
+        #         imageToSearchIn = cv2.imread(fileToClassify)
+
+        #         # img2_gray = cv2.cvtColor(imageToSearchIn, cv2.COLOR_BGR2GRAY)
+
+        #         # Create our ORB detector and detect keypoints and descriptors
+        #         sift = cv2.SIFT_create()
+
+        #         # Find the key points and descriptors with ORB
+        #         keypoints1, descriptors1 = sift.detectAndCompute(imageToSearchFor, None)
+        #         keypoints2, descriptors2 = sift.detectAndCompute(imageToSearchIn, None)
+
+        #         bf = cv2.BFMatcher()
+        #         matches = bf.knnMatch (descriptors1, descriptors2,k=2)
+
+        #         good_matches = []
+        #         for m1, m2 in matches:
+        #             if (m1.distance < 0.6*m2.distance):
+        #                 good_matches.append([m1])
+
+        #         # SIFT_matches = cv2.drawMatchesKnn(imageToSearchFor, keypoints1, imageToSearchIn, keypoints2, good_matches, None, flags=2)
+        #         # cv2.imwrite("/home/keileb", SIFT_matches)
+        #         # print(len(good_matches))
+        #         if (len(good_matches) > 20):
+
+        #             varWhereToSaveIn = GetParams("varWhereToSaveIn")
+        #             file = open(result, "r")
+        #             fileRead = file.read()
+        #             SetVar(varWhereToSaveIn, fileRead)
+        #             file.close()
+        #             # cv2.imwrite("/home/keileb", SIFT_matches)
+        #             break
+
+
+            
+            # elif (fileExtension == "pdf"):
+
+            #     image = convert_from_path(fileToClassify)
+            #     newNameFile = fileToClassify.replace(fileExtension, "png")
+            #     image[0].save(newNameFile, "PNG")
+                
+            #     a = fileToClassify.split('/')
+            #     a[-1] = newNameFile.split('/')[-1]
+            #     newPathFile = separator.join(a)
+
+            #     imageToSearchIn = cv2.imread(newNameFile)
+
+            #     # imageToSearchIn_gray = cv2.cvtColor(imageToSearchIn, cv2.COLOR_BGR2GRAY)
+
+            #     # Create our ORB detector and detect keypoints and descriptors
+            #     sift = cv2.SIFT_create()
+
+            #     # Find the key points and descriptors with ORB
+            #     keypoints1, descriptors1 = sift.detectAndCompute(imageToSearchFor, None)
+            #     keypoints2, descriptors2 = sift.detectAndCompute(imageToSearchIn, None)
+
+            #     bf = cv2.BFMatcher()
+            #     matches = bf.knnMatch (descriptors1, descriptors2,k=2)
+
+            #     good_matches = []
+            #     for m1, m2 in matches:
+            #         if (m1.distance < 0.6*m2.distance):
+            #             good_matches.append([m1])
+
+            #     # SIFT_matches = cv2.drawMatchesKnn(imageToSearchFor, keypoints1, imageToSearchIn, keypoints2, good_matches, None, flags=2)
+            #     # cv2.imwrite("/home/keileb", SIFT_matches)
+            #     # print(len(good_matches))
+            #     if (len(good_matches) > 20):
+
+            #         varWhereToSaveIn = GetParams("varWhereToSaveIn")
+            #         file = open(result, "r")
+            #         fileRead = file.read()
+            #         SetVar(varWhereToSaveIn, fileRead)
+            #         file.close()
+            #         os.remove(newPathFile)
+            #         # cv2.imwrite("/home/keileb", SIFT_matches)
+            #         break
+                
+            #     os.remove(newPathFile)
+

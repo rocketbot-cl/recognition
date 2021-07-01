@@ -10,13 +10,13 @@
   "windows": false,
   "mac": false,
   "docker": true,
-  "name": "ocrWithAI",
+  "name": "classify",
   "dependencies": {
       "pdf2image": "1.16.0"
   },
   "title": {
-    "en": "ocrWithAI",
-    "es": "ocrWithAI"
+    "en": "classify",
+    "es": "classify"
   },
   "icon": "data:image/svg+xml;base64,PHN2ZyBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZD0ibTk1LjY3NyA0MDguODIyaC04MC4xNjFjLS4yODUgMC0uNTE2LS4yMzEtLjUxNi0uNTE2di04MC4xNjFjMC00LjE0My0zLjM1OC03LjUtNy41LTcuNXMtNy41IDMuMzU3LTcuNSA3LjV2ODAuMTYxYzAgOC41NTYgNi45NiAxNS41MTYgMTUuNTE2IDE1LjUxNmg4MC4xNjFjNC4xNDIgMCA3LjUtMy4zNTcgNy41LTcuNSAwLTQuMTQxLTMuMzU4LTcuNS03LjUtNy41eiIvPjxwYXRoIGQ9Im03LjUgMTkxLjM1NGM0LjE0MiAwIDcuNS0zLjM1NyA3LjUtNy41di04MC4xNjFjMC0uMjg0LjIzMS0uNTE2LjUxNi0uNTE2aDgwLjE2MWM0LjE0MiAwIDcuNS0zLjM1OCA3LjUtNy41IDAtNC4xNDMtMy4zNTgtNy41LTcuNS03LjVoLTgwLjE2MWMtOC41NTYuMDAxLTE1LjUxNiA2Ljk2MS0xNS41MTYgMTUuNTE2djgwLjE2MWMwIDQuMTQzIDMuMzU4IDcuNSA3LjUgNy41eiIvPjxwYXRoIGQ9Im01MDQuNSAzMjAuNjQ2Yy00LjE0MiAwLTcuNSAzLjM1Ny03LjUgNy41djgwLjE2MWMwIC4yODQtLjIzMS41MTYtLjUxNi41MTZoLTgwLjE2MWMtNC4xNDIgMC03LjUgMy4zNTgtNy41IDcuNSAwIDQuMTQzIDMuMzU4IDcuNSA3LjUgNy41aDgwLjE2MWM4LjU1NiAwIDE1LjUxNi02Ljk2IDE1LjUxNi0xNS41MTZ2LTgwLjE2MWMwLTQuMTQzLTMuMzU4LTcuNS03LjUtNy41eiIvPjxwYXRoIGQ9Im00OTYuNDg0IDg4LjE3OGgtODAuMTYxYy00LjE0MiAwLTcuNSAzLjM1Ny03LjUgNy41IDAgNC4xNDIgMy4zNTggNy41IDcuNSA3LjVoODAuMTYxYy4yODUgMCAuNTE2LjIzMS41MTYuNTE2djgwLjE2MWMwIDQuMTQzIDMuMzU4IDcuNSA3LjUgNy41czcuNS0zLjM1NyA3LjUtNy41di04MC4xNjFjMC04LjU1Ni02Ljk2LTE1LjUxNi0xNS41MTYtMTUuNTE2eiIvPjxwYXRoIGQ9Im0zMzYuNDc1IDI5My4yNzhjLTMuMTc0LTIuNjYyLTcuOTA0LTIuMjQ3LTEwLjU2Ni45MjYtMS4yNzggMS41MjMtMi42NiAyLjk1LTQuMTA3IDQuMjM5LTcuNDU0IDYuNjM5LTE2Ljg0NSAxMC4wMDQtMjcuOTEzIDEwLjAwNC0yOC45MiAwLTUyLjQ0OC0yMy41MjctNTIuNDQ4LTUyLjQ0N3MyMy41MjgtNTIuNDQ3IDUyLjQ0OC01Mi40NDdjMTAuNTExIDAgMjAuNjQ5IDMuMDk2IDI5LjMxOCA4Ljk1MiAzLjQzMiAyLjMxOSA4LjA5NSAxLjQxNyAxMC40MTMtMi4wMTYgMi4zMTktMy40MzMgMS40MTctOC4wOTUtMi4wMTYtMTAuNDEzLTExLjE1OC03LjUzOS0yNC4yLTExLjUyMy0zNy43MTYtMTEuNTIzLTM3LjE5MSAwLTY3LjQ0OCAzMC4yNTctNjcuNDQ4IDY3LjQ0N3MzMC4yNTcgNjcuNDQ3IDY3LjQ0OCA2Ny40NDdjMTQuNjQ4IDAgMjcuNzUtNC43NzIgMzcuODg5LTEzLjgwMiAxLjk4OS0xLjc3MSAzLjg4MS0zLjcyMyA1LjYyNC01LjgwMSAyLjY2Mi0zLjE3MyAyLjI0Ny03LjkwNC0uOTI2LTEwLjU2NnoiLz48cGF0aCBkPSJtMzc4LjM2IDI2NS45NSA0OC4zNjUgNTQuOTUyYzIuNzQ1IDMuMTE4IDcuNDg4IDMuNDAzIDEwLjU4NS42NzUgMy4xMDktMi43MzcgMy40MTItNy40NzYuNjc1LTEwLjU4NWwtMzkuNzExLTQ1LjEyYy40MDYgMCAuNzk4LS4wMDEgMS4xNTktLjAwMSAyMi4yODkgMCA0MC40MjMtMTcuMzQyIDQwLjQyMy0zOC42NTlzLTE4LjEzNC0zOC42NTktNDAuNDIzLTM4LjY1OWgtMzEuODZjLTQuMDMtLjA4LTcuNTc5IDMuNDcxLTcuNDk5IDcuNWgtLjA0djExOS44OTVjMCA0LjE0MyAzLjM1OCA3LjUgNy41IDcuNXM3LjUtMy4zNTcgNy41LTcuNXYtNDkuOTc5YzEuMDQyLS4wMDcgMi4xNTgtLjAxMyAzLjMyNi0uMDE5em00Ni40OTUtMzguNzM4YzAgMTIuODI1LTExLjY0MiAyMy42NTktMjUuNDIzIDIzLjY1OS00LjkxIDAtMTYuNTg3LjA0My0yNC4zOTkuMDgxdi00Ny4zOTloMjQuMzk5YzEzLjc4MSAwIDI1LjQyMyAxMC44MzQgMjUuNDIzIDIzLjY1OXoiLz48cGF0aCBkPSJtMTM5LjU5MyAxODguNTUzYy0zNy4xOTEgMC02Ny40NDggMzAuMjU3LTY3LjQ0OCA2Ny40NDdzMzAuMjU3IDY3LjQ0NyA2Ny40NDggNjcuNDQ3IDY3LjQ0OC0zMC4yNTcgNjcuNDQ4LTY3LjQ0Ny0zMC4yNTctNjcuNDQ3LTY3LjQ0OC02Ny40NDd6bTAgMTE5Ljg5NGMtMjguOTIgMC01Mi40NDgtMjMuNTI3LTUyLjQ0OC01Mi40NDdzMjMuNTI4LTUyLjQ0NyA1Mi40NDgtNTIuNDQ3IDUyLjQ0OCAyMy41MjcgNTIuNDQ4IDUyLjQ0Ny0yMy41MjggNTIuNDQ3LTUyLjQ0OCA1Mi40NDd6Ii8+PC9nPjwvc3ZnPg==",
   "children": [
@@ -37,6 +37,23 @@
         "css": "modal-lg",
         "inputs": [
             {
+                "type": "file_select",
+                "placeholder": {
+                    "es": "C:\\Users\\Robot\\Desktop\\img.png",
+                    "en": "C:\\Users\\Robot\\Desktop\\img.png"
+                },
+                "title": {
+                    "es": "Ruta del archivo a buscar:",
+                    "en": "Path to file to search for:"
+                },
+                "help": {
+                    "es": "Ruta donde está el archivo",
+                    "en": "Path to file"
+                },
+                "id": "imageToSearch",
+                "css": "col-md-12"
+            },
+            {
                 "type": "folder_select",
                 "placeholder": {
                     "es": "C:\\Users\\Robot\\Desktop",
@@ -46,45 +63,28 @@
                     "es": "Carpeta donde estan las imagenes a leer",
                     "en": "Folder where images for reading are"
                 },
-                "id": "folderToClassify",
+                "id": "folderToCompare",
                 "css": "col-md-12"
             },
             {
-                "type": "folder_select",
+                "type": "input",
                 "placeholder": {
-                    "es": "C:\\Users\\Robot\\Desktop",
-                    "en": "C:\\Users\\Robot\\Desktop"
+                    "en" : "result",
+                    "es" : "resultado"
                 },
                 "title": {
-                    "es": "Carpeta donde guardar el resultado",
-                    "en": "Folder to save the result"
+                    "en": "Variable where to save:",
+                    "es": "Variable donde guardar:"
                 },
-                "id": "folderToSave",
-                "css": "col-md-12"
-            },
-            {
-                "type": "file_select",
-                "placeholder": {
-                    "es": "Ruta del archivo a para clasificar",
-                    "en": "Path to file with words for classification"
-                },
-                "title": {
-                    "es": "Seleccionar un archivo con palabras para filtrar:",
-                    "en": "Select a file with words to filter with:"
-                },
-                "help": {
-                    "es": "Ruta donde está el archivo",
-                    "en": "Path to file"
-                },
-                "id": "wordList",
-                "css": "col-md-12"
+                "id": "varWhereToSaveIn",
+                "css": "col-md-6"
             }
         ]
       },
       "video_youtube": "",
       "icon": "data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfNSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNjQgNjQiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNjQgNjQiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZD0ibTM1IDUzaDE4di0xOGgtMTh6bTItMTZoMTR2MTRoLTE0eiIvPjxwYXRoIGQ9Im01NSAzMXYtNmgtNnY2aC0ydi02aC0zLjc2NWMxLjEwMi0xLjM3MSAxLjc2NS0zLjEwOSAxLjc2NS01IDAtMi4zNjctMS4wNTUtNC41MTktMi43NDktNmg3Ljc0OWMuNTUxIDAgMSAuNDQ5IDEgMXYyLjE4NGMtMS4xNjEuNDE0LTIgMS41MTQtMiAyLjgxNiAwIDEuNjU0IDEuMzQ2IDMgMyAzczMtMS4zNDYgMy0zYzAtMS4zMDItLjgzOS0yLjQwMi0yLTIuODE2di0yLjE4NGMwLTEuNjU0LTEuMzQ2LTMtMy0zaC0xMC42OTZjLS4zNTktLjc1Ny0uODM5LTEuNDMxLTEuNDIyLTJoMjAuMTE4Yy41NTEgMCAxIC40NDkgMSAxdjIuMTg0Yy0xLjE2MS40MTQtMiAxLjUxNC0yIDIuODE2IDAgMS42NTQgMS4zNDYgMyAzIDNzMy0xLjM0NiAzLTNjMC0xLjMwMi0uODM5LTIuNDAyLTItMi44MTZ2LTIuMTg0YzAtMS42NTQtMS4zNDYtMy0zLTNoLTI1di4wMTRjLS4wNzYgMC0uMTQ5LS4wMTMtLjIyNi0uMDEtLjkxNC00LjA1Ni00LjUyNS03LjAwNC04Ljc3NC03LjAwNC0zLjU1MyAwLTYuNzIyIDIuMDY5LTguMTc2IDUuMjQyLS41OTMtLjE2MS0xLjIwMy0uMjQyLTEuODI0LS4yNDItMy41NzkgMC02LjU0IDIuNzAxLTYuOTQ4IDYuMjQ5LTMuNTAyLjg4LTYuMDUyIDQuMDc3LTYuMDUyIDcuNzUxIDAgMi45NTMgMS42MTMgNS41MzIgNCA2LjkxOHYyMy4wODJjMCAxLjY1NCAxLjM0NiAzIDMgM2g1LjE4NGMuNDE0IDEuMTYxIDEuNTE0IDIgMi44MTYgMiAxLjY1NCAwIDMtMS4zNDYgMy0zcy0xLjM0Ni0zLTMtM2MtMS4zMDIgMC0yLjQwMi44MzktMi44MTYgMmgtNS4xODRjLS41NTEgMC0xLS40NDktMS0xdi0yMi4yNjNjLjY0MS4xNjYgMS4zMDguMjYzIDIgLjI2M3YxNGMwIDEuNjU0IDEuMzQ2IDMgMyAzaDMuMTg0Yy40MTQgMS4xNjEgMS41MTQgMiAyLjgxNiAyIDEuNjU0IDAgMy0xLjM0NiAzLTNzLTEuMzQ2LTMtMy0zYy0xLjMwMiAwLTIuNDAyLjgzOS0yLjgxNiAyaC0zLjE4NGMtLjU1MSAwLTEtLjQ0OS0xLTF2LTE0aDJ2NmMwIDEuNjU0IDEuMzQ2IDMgMyAzaDEuMTg0Yy40MTQgMS4xNjEgMS41MTQgMiAyLjgxNiAyIDEuNjU0IDAgMy0xLjM0NiAzLTNzLTEuMzQ2LTMtMy0zYy0xLjMwMiAwLTIuNDAyLjgzOS0yLjgxNiAyaC0xLjE4NGMtLjU1MSAwLTEtLjQ0OS0xLTF2LTZoMTh2M2MtMS4xMDMgMC0yIC44OTctMiAyaC02djZoNnYyaC02djZoNnYyaC02djZoNmMwIDEuMTAzLjg5NyAyIDIgMnY2aDZ2LTZoMnY2aDZ2LTZoMnY2aDZ2LTZjMS4xMDMgMCAyLS44OTcgMi0yaDZ2LTZoLTZ2LTJoNnYtNmgtNnYtMmg2di02aC02YzAtMS4xMDMtLjg5Ny0yLTItMnptLTMtMTBjLS41NTEgMC0xLS40NDktMS0xcy40NDktMSAxLTEgMSAuNDQ5IDEgMS0uNDQ5IDEtMSAxem04LTRjLS41NTEgMC0xLS40NDktMS0xcy40NDktMSAxLTEgMSAuNDQ5IDEgMS0uNDQ5IDEtMSAxem0tNDQgMzRjLjU1MSAwIDEgLjQ0OSAxIDFzLS40NDkgMS0xIDEtMS0uNDQ5LTEtMSAuNDQ5LTEgMS0xem0yLThjLjU1MSAwIDEgLjQ0OSAxIDFzLS40NDkgMS0xIDEtMS0uNDQ5LTEtMSAuNDQ5LTEgMS0xem0yLThjLjU1MSAwIDEgLjQ0OSAxIDFzLS40NDkgMS0xIDEtMS0uNDQ5LTEtMSAuNDQ5LTEgMS0xem03IDJ2LTJoNHYyem0wIDh2LTJoNHYyem0wIDh2LTJoNHYyem0yNC0yNmgydjRoLTJ6bS02IDRoLTJ2LTRoMnptLTQtNC4wODJ2NC4wODJoLTJ2LTMuMjYzYy43MS0uMTg0IDEuMzgxLS40NiAyLS44MTl6bS0zOC02LjkxOGMwLTIuOTYyIDIuMjEyLTUuNTEyIDUuMTQ1LTUuOTMxbC44NTUtLjIwMnYtLjg2N2MwLTIuNzU3IDIuMjQzLTUgNS01IC42OTIgMCAxLjM2NS4xNDEgMi4wMDEuNDJsMS4wMDguNDQxLjM0NC0xLjA0NWMuOTQ2LTIuODggMy42MTctNC44MTYgNi42NDctNC44MTYgMy41NjUgMCA2LjU1NCAyLjY2OSA2Ljk1MiA2LjIxbC4xMTkgMS4wNiAxLjA1LS4xODdjLjMxMy0uMDU2LjYtLjA4My44NzktLjA4MyAyLjIwNiAwIDQuMTI2IDEuNDE1IDQuNzc3IDMuNTIxbC4xNjYuNTM1LjU0My4xMzhjMi42NTguNjc4IDQuNTE0IDMuMDY2IDQuNTE0IDUuODA2IDAgMy4zMDktMi42OTEgNi02IDZoLTI4Yy0zLjMwOSAwLTYtMi42OTEtNi02em0zMiA4aDJ2M2gtMnptMiAzM2gtMnYtNGgyem04IDBoLTJ2LTRoMnptOCAwaC0ydi00aDJ6bS0yMC02di0yMmgyMmwuMDAxIDIyem0yOC00djJoLTR2LTJ6bTAtOHYyaC00di0yem0wLTh2MmgtNHYtMnoiLz48cGF0aCBkPSJtMTYuMDMxIDIwaDMuOTM4bDEuMDYxIDQuMjQzIDEuOTQtLjQ4NS0zLjE4OS0xMi43NThoLTMuNTYybC0zLjE4OSAxMi43NTcgMS45NC40ODV6bTIuMTg4LTcgMS4yNSA1aC0yLjkzOGwxLjI1LTV6Ii8+PHBhdGggZD0ibTMxIDIyaC0ydi05aDJ2LTJoLTZ2MmgydjloLTJ2Mmg2eiIvPjwvZz48L3N2Zz4=",
       "module": "classify_folder",
-      "module_name": "ocrWithAI",
+      "module_name": "classify",
       "visible": true,
       "options": false,
       "father": "module",
