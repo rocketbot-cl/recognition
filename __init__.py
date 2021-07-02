@@ -26,7 +26,6 @@ try:
 
         separator = '/'
         imageName = (imageToSearch.split('/')[-1])
-        imageExtension = (imageName.split('.')[-1])
         imageToSearchIn = None
         newPathImage = None
 
