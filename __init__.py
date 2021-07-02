@@ -9,7 +9,10 @@ cur_path = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'libs' + os
 sys.path.append(cur_path)
 
 import numpy as np
-from pdf2image import convert_from_path, convert_from_bytes
+from convertPdfToPng import convertPdfToPng
+from  imageExtensionChecker import imageExtensionChecker
+
+
         
 module = GetParams("module")
 
@@ -27,15 +30,16 @@ try:
         imageToSearchIn = None
         newPathImage = None
 
-        if (imageExtension == "pdf"):
-            image = convert_from_path(imageToSearch)
-            newNameImage = imageToSearch.replace(imageExtension, "png")
-            image[0].save(newNameImage, "PNG")
+        if not (imageExtensionChecker(imageName)):
+            # image = convert_from_path(imageToSearch)
+            # newNameImage = imageToSearch.replace(imageExtension, "png")
+            # image[0].save(newNameImage, "PNG")
+            newPathImage = convertPdfToPng(imageToSearch)
             
-            a = imageToSearch.split('/')
-            a[-1] = newNameImage.split('/')[-1]
-            newPathImage = separator.join(a)
-            imageToSearchIn = cv2.imread(newNameImage)
+            # a = imageToSearch.split('/')
+            # a[-1] = newNameImage.split('/')[-1]
+            # newPathImage = separator.join(a)
+            imageToSearchIn = cv2.imread(newPathImage)
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
 
@@ -71,6 +75,7 @@ try:
                     # cv2.imwrite("/path/to/save/myresult.png", SIFT_matches)
                     if (newPathImage != None):
                         os.remove(newPathImage)
+                        newPathImage = None
                     break
 
         if (newPathImage != None):
