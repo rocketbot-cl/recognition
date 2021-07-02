@@ -31,14 +31,7 @@ try:
         newPathImage = None
 
         if not (imageExtensionChecker(imageName)):
-            # image = convert_from_path(imageToSearch)
-            # newNameImage = imageToSearch.replace(imageExtension, "png")
-            # image[0].save(newNameImage, "PNG")
             newPathImage = convertPdfToPng(imageToSearch)
-            
-            # a = imageToSearch.split('/')
-            # a[-1] = newNameImage.split('/')[-1]
-            # newPathImage = separator.join(a)
             imageToSearchIn = cv2.imread(newPathImage)
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
