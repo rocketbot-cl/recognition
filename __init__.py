@@ -5,7 +5,7 @@ import cv2
 from glob import glob
 
 base_path = tmp_global_obj["basepath"]
-cur_path = base_path + 'modules' + os.sep + 'classify' + os.sep + 'libs' + os.sep
+cur_path = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'libs' + os.sep
 sys.path.append(cur_path)
 
 import numpy as np
