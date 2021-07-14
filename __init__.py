@@ -20,7 +20,9 @@ try:
     if (module == "folder_recognition"):
 
         folderToCompare = GetParams("folderToCompare") + "/**/*"
-        result = GetParams("folderToCompare") + "/result.ini"
+        partialResult = GetParams("folderToCompare") + "/result.ini"
+        result = None
+        positiveMatch = None
         
         imageToSearch = GetParams("imageToSearch")
 
@@ -36,39 +38,45 @@ try:
             imageToSearchIn = cv2.imread(imageToSearch)
 
 
-        for fileToCompareWith in glob(folderToCompare, recursive=True):
-            if(fileToCompareWith != result):
+        for eachFolderToCompare in glob(folderToCompare, recursive=True):
+            result = eachFolderToCompare + "/result.ini"
+            eachFolderToCompare = eachFolderToCompare + "/**/*"
+            for fileToCompareWith in glob(eachFolderToCompare, recursive=True):
+                if(fileToCompareWith != result):
 
-                imageToCompareWith = cv2.imread(fileToCompareWith)
+                    imageToCompareWith = cv2.imread(fileToCompareWith)
 
-                # Create our ORB detector and detect keypoints and descriptors
-                sift = cv2.SIFT_create()
+                    # Create our ORB detector and detect keypoints and descriptors
+                    sift = cv2.SIFT_create()
 
-                # Find the key points and descriptors with ORB
-                keypoints1, descriptors1 = sift.detectAndCompute(imageToSearchIn, None)
-                keypoints2, descriptors2 = sift.detectAndCompute(imageToCompareWith, None)
+                    # Find the key points and descriptors with ORB
+                    keypoints1, descriptors1 = sift.detectAndCompute(imageToSearchIn, None)
+                    keypoints2, descriptors2 = sift.detectAndCompute(imageToCompareWith, None)
 
-                bf = cv2.BFMatcher()
-                matches = bf.knnMatch (descriptors2, descriptors1,k=2)
+                    bf = cv2.BFMatcher()
+                    matches = bf.knnMatch (descriptors2, descriptors1,k=2)
 
-                good_matches = []
+                    good_matches = []
 
-                for m1, m2 in matches:
-                    if (m1.distance < 0.6*m2.distance):
-                        good_matches.append([m1])
+                    for m1, m2 in matches:
+                        if (m1.distance < 0.6*m2.distance):
+                            good_matches.append([m1])
 
-                if ((len(good_matches) > 20)):
-                    varWhereToSaveIn = GetParams("varWhereToSaveIn")
-                    file = open(result, "r")
-                    fileRead = file.read()
-                    SetVar(varWhereToSaveIn, fileRead)
-                    file.close()
-                    # SIFT_matches = cv2.drawMatchesKnn(imageToCompareWith, keypoints2, imageToSearchIn, keypoints1, good_matches, None, flags=2)
-                    # cv2.imwrite("/path/to/save/myresult.png", SIFT_matches)
-                    if (newPathImage != None):
-                        os.remove(newPathImage)
-                        newPathImage = None
-                    break
+                    if ((len(good_matches) > 20)):
+                        varWhereToSaveIn = GetParams("varWhereToSaveIn")
+                        file = open(result, "r")
+                        fileRead = file.read()
+                        SetVar(varWhereToSaveIn, fileRead)
+                        file.close()
+                        # SIFT_matches = cv2.drawMatchesKnn(imageToCompareWith, keypoints2, imageToSearchIn, keypoints1, good_matches, None, flags=2)
+                        # cv2.imwrite("/path/to/save/myresult.png", SIFT_matches)
+                        if (newPathImage != None):
+                            os.remove(newPathImage)
+                            newPathImage = None
+                            positiveMatch = 1
+                        break
+            if (positiveMatch == 1):
+                break
 
         if (newPathImage != None):
             os.remove(newPathImage)
