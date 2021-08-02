@@ -16,12 +16,12 @@ The Recognition command enables users to recognize and classify images.
 
 
 1. #### Image recognition
-    Specifies the file to classify, the folder that contains folders with image to recognize it, and last the variable where to store what you have in the .ini file when you classify successfully.
+    Specifies the image to classify, the folder that contains folders with image to recognize it, and last the variable where to store what you have in the .ini file when you classify successfully.
     > This function is recommended to differentiate between differents images.
     
 
 2. #### Exact image recognition
-    Specifies the file to classify, the folder that contains folders with image to recognize it, and last the variable where to store what you have in the .ini file when you classify successfully.
+    Specifies the image to classify, the folder that contains folders with image to recognize it, and last the variable where to store what you have in the .ini file when you classify successfully.
     > This function is recommended to differentiate between similar images.
 
 
