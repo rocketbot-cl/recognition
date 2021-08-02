@@ -5,6 +5,26 @@ import cv2
 from glob import glob
 import time
 
+def import_lib(relative_path, name, class_name=None):
+    """
+    - relative_path: library path from the module's libs folder
+    - name: library name
+    - class_name: class name to be imported. As 'from name import class_name'
+    """
+   
+    import importlib.util
+
+    cur_path = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'libs' + os.sep
+
+    spec = importlib.util.spec_from_file_location(name, cur_path + relative_path)
+    foo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(foo)
+    if class_name is not None:
+        return getattr(foo, class_name)
+    return foo
+
+
+
 def search_reference_in_image(original, references=[], image_region=None, init_zoom=0, max_zoom=1.0, samples=20,
                               rotate=True, angle=2, match_porcent=.8, path_references_base=""):
     """Busca referencia en una imagen y devuelve la imagen recortada y en memoria:
@@ -87,41 +107,61 @@ sys.path.append(cur_path)
 import numpy as np
 from convertPdfToPng import convertPdfToPng
 from  imageExtensionChecker import imageExtensionChecker
-
-
+cv2 = import_lib('cv2/cv2.cp36-win32.pyd', 'cv2')
+path_to_poppler = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'bin' + os.sep + 'bin' + os.sep
 
 
         
 module = GetParams("module")
 
 try:
+    
+
+    # def convertPdfToPng(path):
+    #     from pdf2image import convert_from_path
+    #     import unicodedata
+    #     try:
+    #         newPng = convert_from_path(path)
+    #         newPngPath = path.replace("pdf", "png")
+    #         newPngPath = unicodedata.normalize("NFKD", newPngPath).encode("ascii", "ignore").decode("ascii")
+    #         newPng[0].save(newPngPath, "PNG")
+    #         return newPngPath
+    #     except Exception as e:
+    #         print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
+    #         PrintException()
+    #         raise e
+
     if (module == "folder_recognition"):
 
         folderToCompare = GetParams("folderToCompare") + "/**/*"
-        partialResult = GetParams("folderToCompare") + "/result.ini"
+        folderToCompare = folderToCompare.replace("/", os.sep)
+        partialResult = GetParams("folderToCompare") + os.sep +"result.ini"
+
         result = None
         positiveMatch = None
         
         imageToSearch = GetParams("imageToSearch")
+        imageToSearch = imageToSearch.replace("/", os.sep)
 
         separator = '/'
-        imageName = (imageToSearch.split('/')[-1])
+        imageName = (imageToSearch.split(os.sep)[-1])
         imageToSearchIn = None
         newPathImage = None
-
+        
         if not (imageExtensionChecker(imageName)):
-            newPathImage = convertPdfToPng(imageToSearch)
+            newPathImage = convertPdfToPng(imageToSearch, path_to_poppler)
             imageToSearchIn = cv2.imread(newPathImage)
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
 
 
         for eachFolderToCompare in glob(folderToCompare, recursive=True):
-            result = eachFolderToCompare + "/result.ini"
-            eachFolderToCompare = eachFolderToCompare + "/**/*"
+            result = eachFolderToCompare.replace("/", os.sep) + os.sep +"result.ini"
+            eachFolderToCompare = eachFolderToCompare.replace("/", os.sep) + os.sep +"**" + os.sep + "*"
             for fileToCompareWith in glob(eachFolderToCompare, recursive=True):
                 if(fileToCompareWith != result):
-
+                    print("viene el fileToCompareWith")
+                    print(fileToCompareWith)
                     imageToCompareWith = cv2.imread(fileToCompareWith)
 
                     # Create our ORB detector and detect keypoints and descriptors
@@ -178,7 +218,7 @@ try:
         finalPathImage = None
 
         if not (imageExtensionChecker(imageName)):
-            newPathImage = convertPdfToPng(imageToSearch)
+            newPathImage = convertPdfToPng(imageToSearch, path_to_poppler)
             imageToSearchIn = cv2.imread(newPathImage)
             finalPathImage = newPathImage
         else:
@@ -226,9 +266,6 @@ try:
 
         if (finalPathImage != None):
             os.remove(finalPathImage)
-
-    if (module == "face_recognition"):
-        pass
 
 except Exception as e:
     print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
