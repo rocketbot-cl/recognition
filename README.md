@@ -1,15 +1,43 @@
 # Recognition
 
-Module to classify images (png, jpg, pdf).
+Module to recognize and classify images.
 
-## Commands
+```
+  <books>
+    <book>
+      <author>Caleb Cipra</author>
+    </book>
+  </books>
+```
 
-* Image recognition.
+## Overview
+
+The Recognition command enables users to recognize and classify images.
 
 
+1. #### Image recognition
+    Specifies the file to classify, the folder that contains folders with image to recognize it, and last the variable where to store what you have in the .ini file when you classify successfully.
+    > This function is recommended to differentiate between differents images.
+    
 
-## License
+2. #### Exact image recognition
+    Specifies the file to classify, the folder that contains folders with image to recognize it, and last the variable where to store what you have in the .ini file when you classify successfully.
+    > This function is recommended to differentiate between similar images.
 
-<p><a href="http://badges.mit-license.org" rel="nofollow"><img src="https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265" alt="License" data-canonical-src="http://img.shields.io/:license-mit-blue.svg?style=flat-square" style="max-width:100%;"></a></p>
 
-* <strong><a href="http://opensource.org/licenses/mit-license.php" rel="nofollow">MIT license</a></strong></li>
+----
+
+### OS:
+  - Linux
+  - Windows
+
+### Dependencies
+- [**pdf2image**](https://pypi.org/project/pdf2image/)
+- [**numpy**](https://pypi.org/project/numpy/)
+        
+
+### License
+
+![MIT](https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265) 
+
+[MIT License](http://opensource.org/licenses/mit-license.ph)

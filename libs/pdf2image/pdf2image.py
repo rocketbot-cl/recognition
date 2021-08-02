@@ -49,7 +49,7 @@ def convert_from_path(
     transparent=False,
     single_file=False,
     output_file=uuid_generator(),
-    poppler_path=None,
+    poppler_path="C:\\Users\\Caleb\\Downloads\\Rocketbot_20201230_a2_win\\Rocketbot\\modules\\recognition\\libs\\poppler-21.03.0\\Library\\bin",
     grayscale=False,
     size=None,
     paths_only=False,

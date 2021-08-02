@@ -7,7 +7,7 @@
   "license": "MIT",
   "homepage": "http://rocketbot.co",
   "linux": true,
-  "windows": false,
+  "windows": true,
   "mac": false,
   "docker": true,
   "name": "recognition",
@@ -94,6 +94,80 @@
       "windows": false,
       "mac": false,
       "docker": true
-    }
+    },
+    {
+        "en": {
+          "title": "Exact image recognition",
+          "description": "Exact image recognition",
+          "title_options": null,
+          "options": null
+        },
+        "es": {
+          "title": "Clasificar imagen exactamente",
+          "description": "Clasificar imagen exactamente",
+          "title_options": null,
+          "options": null
+        },
+        "form": {
+          "css": "modal-lg",
+          "inputs": [
+              {
+                  "type": "file_select",
+                  "placeholder": {
+                      "es": "C:\\Users\\Robot\\Desktop\\img.png",
+                      "en": "C:\\Users\\Robot\\Desktop\\img.png"
+                  },
+                  "title": {
+                      "es": "Ruta del archivo a clasificar:",
+                      "en": "Path to file to recognize:"
+                  },
+                  "help": {
+                      "es": "Ruta donde está el archivo",
+                      "en": "Path to file"
+                  },
+                  "id": "imageToSearch",
+                  "css": "col-md-12"
+              },
+              {
+                  "type": "folder_select",
+                  "placeholder": {
+                      "es": "C:\\Users\\Robot\\Desktop",
+                      "en": "C:\\Users\\Robot\\Desktop"
+                  },
+                  "title": {
+                      "es": "Carpeta donde estan las imagenes para clasificar",
+                      "en": "Folder where images for recognition are"
+                  },
+                  "id": "folderToCompare",
+                  "css": "col-md-12"
+              },
+              {
+                  "type": "input",
+                  "placeholder": {
+                      "en" : "result",
+                      "es" : "resultado"
+                  },
+                  "title": {
+                      "en": "Variable where to save:",
+                      "es": "Variable donde guardar:"
+                  },
+                  "id": "varWhereToSaveIn",
+                  "css": "col-md-6"
+              }
+          ]
+        },
+        "video_youtube": "",
+        "icon": "data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMXB0IiB2aWV3Qm94PSIxIDEgNTExLjk5OTUgNTExIiB3aWR0aD0iNTExcHQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTE1IDMwMi41MTE3MTloMTY4LjEyNWMzLjEwNTQ2OSAyMS42OTUzMTIgMTIuOTg0Mzc1IDQyLjU5Mzc1IDI5LjYzNjcxOSA1OS4yNSAzNy4wOTM3NSAzNy4wODk4NDMgOTUuNzUgNDAuODI4MTI1IDEzNy4xMzI4MTIgOS44NDM3NWwyMC45MDYyNSAyMC45MTAxNTYtMTAuNjA1NDY5IDEwLjYwOTM3NWMtNS44NTkzNzQgNS44NTU0NjktNS44NTkzNzQgMTUuMzU1NDY5IDAgMjEuMjEwOTM4bDc1LjAwMzkwNyA3NS4wMDM5MDZjMTcuNTQyOTY5IDE3LjU0Njg3NSA0Ni4wOTM3NSAxNy41NDY4NzUgNjMuNjQwNjI1IDBzMTcuNTQ2ODc1LTQ2LjA5Mzc1IDAtNjMuNjQwNjI1bC03NS4wMDM5MDYtNzUuMDAzOTA3Yy01Ljg1NTQ2OS01Ljg1NTQ2OC0xNS4zNTU0NjktNS44NTkzNzQtMjEuMjE0ODQ0IDBsLTEwLjYwNTQ2OSAxMC42MDU0NjktMjAuOTEwMTU2LTIwLjkwNjI1YzMwLjc3MzQzNy00MS4wOTc2NTYgMjcuNDk2MDkzLTk5Ljc5Mjk2OS05Ljg0Mzc1LTEzNy4xMzI4MTItOC43NDYwOTQtOC43NDIxODgtMTguNjY0MDYzLTE1LjYxMzI4MS0yOS4yNS0yMC42MjEwOTR2LTE3Ny4xNDA2MjVjMC04LjI4NTE1Ni02LjcxNDg0NC0xNS0xNS0xNWgtMzAyLjAxMTcxOWMtOC4yODUxNTYgMC0xNSA2LjcxNDg0NC0xNSAxNXYyNzIuMDExNzE5YzAgOC4yODUxNTYgNi43MTQ4NDQgMTUgMTUgMTV6bTQ2Mi42MjUgMTU0LjM5ODQzN2M1Ljg1MTU2MiA1Ljg1MTU2MyA1Ljg1MTU2MiAxNS4zNjcxODggMCAyMS4yMTQ4NDQtNS44NDc2NTYgNS44NDc2NTYtMTUuMzYzMjgxIDUuODQ3NjU2LTIxLjIxNDg0NCAwbC02NC4zOTQ1MzEtNjQuMzk0NTMxIDIxLjIxNDg0NC0yMS4yMTQ4NDR6bS00NDcuNjI1LTIxNC40MTAxNTZoMTYyLjE0MDYyNWMtNC41MzEyNSA5LjU3NDIxOS03LjUzOTA2MyAxOS43MDcwMzEtOS4wMTU2MjUgMzAuMDExNzE5aC0xNTMuMTI1em0zMTAuMDQ2ODc1IDk4LjA0Njg3NWMtMjkuMjQyMTg3IDI5LjI0MjE4Ny03Ni44MjgxMjUgMjkuMjQyMTg3LTEwNi4wNzAzMTMgMC0yOS4yNDIxODctMjkuMjQ2MDk0LTI5LjI0MjE4Ny03Ni44MjgxMjUgMC0xMDYuMDcwMzEzIDI5LjI0MjE4OC0yOS4yNDIxODcgNzYuODI4MTI2LTI5LjI0NjA5MyAxMDYuMDcwMzEzIDAgMjkuMjQyMTg3IDI5LjI0MjE4OCAyOS4yNDIxODcgNzYuODI4MTI2IDAgMTA2LjA3MDMxM3ptLTEyNi41MTE3MTktMTI4LjAzOTA2M2gtMTgzLjUzNTE1NnYtMzguNzg5MDYybDc2LjAwMzkwNi03Ni4wMDM5MDYgODAuMzk4NDM4IDgwLjM5ODQzN2MyLjgxMjUgMi44MTI1IDYuNjI4OTA2IDQuMzk0NTMxIDEwLjYwNTQ2OCA0LjM5NDUzMWgzMGM4LjI4NTE1NyAwIDE1LjAwMzkwNy02LjcxODc1IDE1LjAwMzkwNy0xNSAwLTguMjg1MTU2LTYuNzE4NzUtMTUtMTUuMDAzOTA3LTE1aC0yMy43ODUxNTZsLTE1LjA4OTg0NC0xNS4wODk4NDMgMzguOTA2MjUtMzkuNTU0Njg4IDc0Ljk3MjY1NyA3NS44MDg1OTR2OS45NTMxMjVjLTMxLjMwNDY4OC00LjQ4MDQ2OS02NC4yNTc4MTMgNS4xNTIzNDQtODguNDc2NTYzIDI4Ljg4MjgxMnptODguNDc2NTYzLTE4Mi4wMDc4MTJ2MTAwLjUwNzgxMmwtNjQuMzM1OTM4LTY1LjA1NDY4N2MtMi44MjAzMTItMi44NDc2NTYtNi42NjAxNTYtNC40NDkyMTktMTAuNjY3OTY5LTQuNDQ5MjE5LS4wMDM5MDYgMC0uMDExNzE4IDAtLjAxOTUzMSAwLTQuMDE1NjI1LjAwMzkwNi03Ljg1OTM3NSAxLjYxNzE4OC0xMC42NzE4NzUgNC40ODA0NjlsLTQ5LjM5ODQzNyA1MC4yMTg3NS01MC4zMDg1OTQtNTAuMzA4NTk0Yy01Ljg1NTQ2OS01Ljg1NTQ2OS0xNS4zNTU0NjktNS44NTU0NjktMjEuMjEwOTM3IDBsLTY1LjM5ODQzOCA2NS4zOTg0Mzh2LTEwMC43OTI5Njl6bTAgMCIvPjwvc3ZnPg==",
+        "module": "exact_match",
+        "module_name": "recognition",
+        "visible": true,
+        "options": false,
+        "father": "module",
+        "group": "scripts",
+        "linux": true,
+        "windows": false,
+        "mac": false,
+        "docker": true
+      }
   ]
 }
