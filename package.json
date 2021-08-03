@@ -7,7 +7,7 @@
   "license": "MIT",
   "homepage": "http://rocketbot.co",
   "linux": true,
-  "windows": true,
+  "windows": false,
   "mac": false,
   "docker": true,
   "name": "recognition",
@@ -98,13 +98,13 @@
     {
         "en": {
           "title": "Exact image recognition",
-          "description": "Exact image recognition",
+          "description": "Image recognition",
           "title_options": null,
           "options": null
         },
         "es": {
           "title": "Clasificar imagen exactamente",
-          "description": "Clasificar imagen exactamente",
+          "description": "Clasifica una imagen",
           "title_options": null,
           "options": null
         },

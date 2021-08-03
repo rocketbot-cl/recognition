@@ -4,9 +4,30 @@ import subprocess
 import cv2
 from glob import glob
 import time
+import platform
+
+def import_lib(relative_path, name, class_name=None):
+    """
+    - relative_path: library path from the module's libs folder
+    - name: library name
+    - class_name: class name to be imported. As 'from name import class_name'
+    """
+   
+    import importlib.util
+
+    cur_path = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'libs' + os.sep
+
+    spec = importlib.util.spec_from_file_location(name, cur_path + relative_path)
+    foo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(foo)
+    if class_name is not None:
+        return getattr(foo, class_name)
+    return foo
+
+
 
 def search_reference_in_image(original, references=[], image_region=None, init_zoom=0, max_zoom=1.0, samples=20,
-                              rotate=True, angle=2, match_porcent=.9, path_references_base=""):
+                              rotate=True, angle=2, match_porcent=.8, path_references_base=""):
     """Busca referencia en una imagen y devuelve la imagen recortada y en memoria:
         -------------------------------------------------------------------------
         References = Array de path de imagenes de referencia.
@@ -20,22 +41,20 @@ def search_reference_in_image(original, references=[], image_region=None, init_z
         path_references_base = Path base de los path de referencias de imagenes.
         @return posicion, (width, height) imagen de referencia
     """
-    print(references)
     import cv2
     import numpy as np
     import imutils
+    print(references)
     try:
         for ref in references:
             first = True
+            print(ref)
             template = cv2.cvtColor(cv2.imread(path_references_base + ref), cv2.COLOR_BGR2GRAY)
             img_original = cv2.imread(original)
             (tH, tW) = template.shape[:2]
-            
             if image_region:
                 img_original = img_original[image_region["y"]:image_region["y2"], image_region["x"]:image_region["x2"]]
-
             img = cv2.cvtColor(img_original, cv2.COLOR_BGR2GRAY)
-
             cv2.imwrite("search_on.png", img)
             ok = False
             range_ = [1]
@@ -44,10 +63,7 @@ def search_reference_in_image(original, references=[], image_region=None, init_z
                     if rotate and not first:
                         range_ = np.arange(-angle, angle, 1)
                     # resize the image according to the scale, and keep track
-                    try:
-                        resized = imutils.resize(img, width=int(img.shape[1] * scale))
-                    except Exception as e:
-                        print(e)
+                    resized = imutils.resize(img, width=int(img.shape[1] * scale))
                     if resized.shape[0] < tH or resized.shape[1] < tW:
                         # Se supero el maximo de resizes, se vuelve
                         break
@@ -62,26 +78,28 @@ def search_reference_in_image(original, references=[], image_region=None, init_z
                             res = cv2.matchTemplate(img_o, template, cv2.TM_CCOEFF_NORMED)
                             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
                             loc = np.where(res >= match_porcent)
-                            for z in zip(*loc[::-1]):
+                            print(loc)
+                            print(zip(*loc[::-1]))
+                            z = zip(*loc[::-1])
+                            print(z)
                             # print("Ref:",ref,"Angulo:", r,"z:",z, "Scale:", scale)
                             # if len(z) > 0:
+                            for i in z:
                                 top_left = max_loc
                                 bottom_right = (top_left[0] + tW, top_left[1] + tH)
                                 cv2.rectangle(img_o, top_left, bottom_right, (0, 0, 255), 2)
                                 cv2.imwrite("SIMAGE.png", img_o)
                                 # print("*"*30)
                                 # print(tH,tW)
+                                # return i[0], (tH, tW), scale, (top_left, bottom_right)
                                 return True
-                                # return z[0], (tH, tW), scale, (top_left, bottom_right)
                         except Exception as e:
                             print(e)
-
                 first = False
     except Exception as e:
         print(e)
-
     print("Me salgo")
-    return None, None, None, None
+    return False
 
 base_path = tmp_global_obj["basepath"]
 cur_path = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'libs' + os.sep
@@ -91,13 +109,34 @@ import numpy as np
 from convertPdfToPng import convertPdfToPng
 from  imageExtensionChecker import imageExtensionChecker
 
+platform_name = platform.system()
+path_to_poppler = None
 
+if (platform_name == "Windows"):
+    cv2 = import_lib('cv2/cv2.cp36-win32.pyd', 'cv2')
+    path_to_poppler = base_path + 'modules' + os.sep + 'recognition' + os.sep + 'bin' + os.sep + 'bin' + os.sep
 
 
         
 module = GetParams("module")
 
 try:
+    
+
+    # def convertPdfToPng(path):
+    #     from pdf2image import convert_from_path
+    #     import unicodedata
+    #     try:
+    #         newPng = convert_from_path(path)
+    #         newPngPath = path.replace("pdf", "png")
+    #         newPngPath = unicodedata.normalize("NFKD", newPngPath).encode("ascii", "ignore").decode("ascii")
+    #         newPng[0].save(newPngPath, "PNG")
+    #         return newPngPath
+    #     except Exception as e:
+    #         print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
+    #         PrintException()
+    #         raise e
+
     if (module == "folder_recognition"):
 
         folderToCompare = GetParams("folderToCompare") + "/**/*"
@@ -114,9 +153,9 @@ try:
         imageName = (imageToSearch.split(os.sep)[-1])
         imageToSearchIn = None
         newPathImage = None
-
+        
         if not (imageExtensionChecker(imageName)):
-            newPathImage = convertPdfToPng(imageToSearch)
+            newPathImage = convertPdfToPng(imageToSearch, path_to_poppler)
             imageToSearchIn = cv2.imread(newPathImage)
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
@@ -172,57 +211,67 @@ try:
     if (module == "exact_match"):
 
         folderToCompare = GetParams("folderToCompare") + "/**/*"
-        folderToCompare = folderToCompare.replace("/", os.sep)
-        partialResult = GetParams("folderToCompare") + os.sep +"result.ini"
+        partialResult = GetParams("folderToCompare") + "/result.ini"
         result = None
         positiveMatch = None
         
         imageToSearch = GetParams("imageToSearch")
-        imageToSearch = imageToSearch.replace("/", os.sep)
+
         separator = '/'
-        imageName = (imageToSearch.split(os.sep)[-1])
+        imageName = (imageToSearch.split('/')[-1])
         imageToSearchIn = None
         newPathImage = None
         finalPathImage = None
-        
 
         if not (imageExtensionChecker(imageName)):
-            newPathImage = convertPdfToPng(imageToSearch)
+            newPathImage = convertPdfToPng(imageToSearch, path_to_poppler)
             imageToSearchIn = cv2.imread(newPathImage)
-            finalPathImage = newPathImage.replace("/", os.sep)
+            finalPathImage = newPathImage
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
-            finalPathImage = imageToSearch.replace("/", os.sep)
+            finalPathImage = imageToSearch
 
 
         for eachFolderToCompare in glob(folderToCompare, recursive=True):
-            result = eachFolderToCompare.replace("/", os.sep) + os.sep +"result.ini"
-            eachFolderToCompare = eachFolderToCompare.replace("/", os.sep) + os.sep +"**" + os.sep + "*"
+            result = eachFolderToCompare + "/result.ini"
+            eachFolderToCompare = eachFolderToCompare + "/**/*"
             for fileToCompareWith in glob(eachFolderToCompare, recursive=True):
                 if(fileToCompareWith != result):
 
+                    # imageToCompareWith = cv2.imread(fileToCompareWith)
+
+                    # grey_img = cv2.cvtColor(imageToSearchIn, cv2.COLOR_BGR2GRAY)
+                    # template = cv2.cvtColor(imageToCompareWith, cv2.COLOR_BGR2GRAY)
+
+                    # res = cv2.matchTemplate(grey_img, template, cv2.TM_CCOEFF_NORMED)
                     a = []
                     a.append(fileToCompareWith)
-
+                    print(finalPathImage)
+                    print("viene a")
+                    print(a)
                     # time.sleep(1)
                     if (search_reference_in_image(finalPathImage, a) == True):
+                        print("Eso es un True")
                         varWhereToSaveIn = GetParams("varWhereToSaveIn")
                         file = open(result, "r")
                         fileRead = file.read()
                         SetVar(varWhereToSaveIn, fileRead)
                         file.close()
+                        positiveMatch = 1
 
                         if (finalPathImage != None):
-                            # os.remove(finalPathImage)
+                            os.remove(finalPathImage)
                             finalPathImage = None
-                            positiveMatch = 1
-                        break
+                            break
+
+                    # if (positiveMatch == 1):
+                    #     break
             if (positiveMatch == 1):
                 break
+        
 
         if (finalPathImage != None):
-            # os.remove(finalPathImage)
-            pass
+            os.remove(finalPathImage)
 
 except Exception as e:
     print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
