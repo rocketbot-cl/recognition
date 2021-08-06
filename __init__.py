@@ -69,7 +69,7 @@ def search_reference_in_image(original, references=[], image_region=None, init_z
                         break
                     for r in range_:
                         if rotate and not first:
-                            # print("Rotate...")
+                            print("Rotate...")
                             img_o = imutils.rotate(resized, r)
                             cv2.imwrite("rot.png", resized)
                         else:
@@ -78,19 +78,14 @@ def search_reference_in_image(original, references=[], image_region=None, init_z
                             res = cv2.matchTemplate(img_o, template, cv2.TM_CCOEFF_NORMED)
                             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
                             loc = np.where(res >= match_porcent)
-                            print(loc)
-                            print(zip(*loc[::-1]))
                             z = zip(*loc[::-1])
-                            print(z)
-                            # print("Ref:",ref,"Angulo:", r,"z:",z, "Scale:", scale)
                             # if len(z) > 0:
                             for i in z:
+                                print("estamos en el for")
                                 top_left = max_loc
                                 bottom_right = (top_left[0] + tW, top_left[1] + tH)
                                 cv2.rectangle(img_o, top_left, bottom_right, (0, 0, 255), 2)
                                 cv2.imwrite("SIMAGE.png", img_o)
-                                # print("*"*30)
-                                # print(tH,tW)
                                 # return i[0], (tH, tW), scale, (top_left, bottom_right)
                                 return True
                         except Exception as e:
@@ -121,21 +116,6 @@ if (platform_name == "Windows"):
 module = GetParams("module")
 
 try:
-    
-
-    # def convertPdfToPng(path):
-    #     from pdf2image import convert_from_path
-    #     import unicodedata
-    #     try:
-    #         newPng = convert_from_path(path)
-    #         newPngPath = path.replace("pdf", "png")
-    #         newPngPath = unicodedata.normalize("NFKD", newPngPath).encode("ascii", "ignore").decode("ascii")
-    #         newPng[0].save(newPngPath, "PNG")
-    #         return newPngPath
-    #     except Exception as e:
-    #         print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")
-    #         PrintException()
-    #         raise e
 
     if (module == "folder_recognition"):
 
@@ -153,10 +133,12 @@ try:
         imageName = (imageToSearch.split(os.sep)[-1])
         imageToSearchIn = None
         newPathImage = None
+        converted = False
         
         if not (imageExtensionChecker(imageName)):
             newPathImage = convertPdfToPng(imageToSearch, path_to_poppler)
             imageToSearchIn = cv2.imread(newPathImage)
+            converted = True
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
 
@@ -166,8 +148,6 @@ try:
             eachFolderToCompare = eachFolderToCompare.replace("/", os.sep) + os.sep +"**" + os.sep + "*"
             for fileToCompareWith in glob(eachFolderToCompare, recursive=True):
                 if(fileToCompareWith != result):
-                    print("viene el fileToCompareWith")
-                    print(fileToCompareWith)
                     imageToCompareWith = cv2.imread(fileToCompareWith)
 
                     # Create our ORB detector and detect keypoints and descriptors
@@ -222,11 +202,13 @@ try:
         imageToSearchIn = None
         newPathImage = None
         finalPathImage = None
+        converted = False
 
         if not (imageExtensionChecker(imageName)):
             newPathImage = convertPdfToPng(imageToSearch, path_to_poppler)
             imageToSearchIn = cv2.imread(newPathImage)
             finalPathImage = newPathImage
+            converted = True
         else:
             imageToSearchIn = cv2.imread(imageToSearch)
             finalPathImage = imageToSearch
@@ -236,7 +218,7 @@ try:
             result = eachFolderToCompare + "/result.ini"
             eachFolderToCompare = eachFolderToCompare + "/**/*"
             for fileToCompareWith in glob(eachFolderToCompare, recursive=True):
-                if(fileToCompareWith != result):
+                if not (fileToCompareWith.endswith("ini")):
 
                     # imageToCompareWith = cv2.imread(fileToCompareWith)
 
@@ -246,12 +228,7 @@ try:
                     # res = cv2.matchTemplate(grey_img, template, cv2.TM_CCOEFF_NORMED)
                     a = []
                     a.append(fileToCompareWith)
-                    print(finalPathImage)
-                    print("viene a")
-                    print(a)
-                    # time.sleep(1)
                     if (search_reference_in_image(finalPathImage, a) == True):
-                        print("Eso es un True")
                         varWhereToSaveIn = GetParams("varWhereToSaveIn")
                         file = open(result, "r")
                         fileRead = file.read()
@@ -260,18 +237,19 @@ try:
                         positiveMatch = 1
 
                         if (finalPathImage != None):
-                            os.remove(finalPathImage)
+                            if converted:
+                                os.remove(finalPathImage)
+                                converted = False
                             finalPathImage = None
                             break
 
-                    # if (positiveMatch == 1):
-                    #     break
             if (positiveMatch == 1):
                 break
         
 
-        if (finalPathImage != None):
+        if converted:
             os.remove(finalPathImage)
+            converted = False
 
 except Exception as e:
     print("\x1B[" + "31;40mAn error occurred\u2193\x1B[" + "0m")

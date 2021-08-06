@@ -7,7 +7,7 @@
   "license": "MIT",
   "homepage": "http://rocketbot.co",
   "linux": true,
-  "windows": false,
+  "windows": true,
   "mac": false,
   "docker": true,
   "name": "recognition",
@@ -91,7 +91,7 @@
       "father": "module",
       "group": "scripts",
       "linux": true,
-      "windows": false,
+      "windows": true,
       "mac": false,
       "docker": true
     },
@@ -165,7 +165,7 @@
         "father": "module",
         "group": "scripts",
         "linux": true,
-        "windows": false,
+        "windows": true,
         "mac": false,
         "docker": true
       }
