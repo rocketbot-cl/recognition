@@ -3,5 +3,6 @@ def imageExtensionChecker(filename):
     filenameExtension = filenameExtension.lower()
     if (filenameExtension == "pdf"):
         return False
-    elif (filenameExtension == "png" or filenameExtension == "jpg"):
+    # return True
+    elif (filenameExtension in ("png", "jpg", "jpeg")):
         return True
