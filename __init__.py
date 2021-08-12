@@ -149,8 +149,11 @@ try:
 
 
             for eachFolderToCompare in glob(folderToCompare, recursive=True):
+                print(eachFolderToCompare)
                 result = eachFolderToCompare.replace("/", os.sep) + os.sep +"result.ini"
                 eachFolderToCompare = eachFolderToCompare.replace("/", os.sep) + os.sep +"**" + os.sep + "*"
+                print(result)
+                
                 for fileToCompareWith in glob(eachFolderToCompare, recursive=True):
                 
                     if(fileToCompareWith != result):
