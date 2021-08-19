@@ -2,13 +2,7 @@
 
 Module to recognize and classify images.
 
-```
-  <books>
-    <book>
-      <author>Caleb Cipra</author>
-    </book>
-  </books>
-```
+----
 
 ## Overview
 
