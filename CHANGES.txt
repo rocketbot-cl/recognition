@@ -1,0 +1,2 @@
+Tue Aug 3 10:55:33 2021  [hidden] linux and windows merged
+Tue Aug 3 10:52:12 2021  Merge branch qa2 of github.com:rocketbot-cl/recognition into qa2

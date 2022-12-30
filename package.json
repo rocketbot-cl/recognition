@@ -3,9 +3,9 @@
   "author": "Caleb Cipra",
   "description": "Module to recognize and classify images",
   "disclaimer": "THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-  "version": "1.0",
+  "version": "1.0.1",
   "license": "MIT",
-  "homepage": "http://rocketbot.co",
+  "homepage": "http://rocketbot.com",
   "linux": true,
   "windows": true,
   "mac": false,
@@ -47,6 +47,10 @@
                     "es": "Ruta del archivo a clasificar:",
                     "en": "Path to file to recognize:"
                 },
+                "description": {
+                    "es": "Ruta donde está el archivo",
+                    "en": "Path to file"
+                },
                 "help": {
                     "es": "Ruta donde está el archivo",
                     "en": "Path to file"
@@ -64,6 +68,10 @@
                     "es": "Carpeta donde estan las imagenes para clasificar",
                     "en": "Folder where images for recognition are"
                 },
+                "description": {
+                    "es": "Imagenes para clasificar",
+                    "en": "Images for recognition"
+                },
                 "id": "folderToCompare",
                 "css": "col-md-12"
             },
@@ -76,6 +84,14 @@
                 "title": {
                     "en": "Variable where to save:",
                     "es": "Variable donde guardar:"
+                },
+                "description": {
+                    "en": "Variable where the result will be saved",
+                    "es": "Variable donde se guardará el resultado"
+                },
+                "help": {
+                    "en": "Variable name without {}",
+                    "es": "Nombre de la variable sin {}"
                 },
                 "id": "varWhereToSaveIn",
                 "css": "col-md-6"
@@ -121,6 +137,10 @@
                       "es": "Ruta del archivo a clasificar:",
                       "en": "Path to file to recognize:"
                   },
+                  "description": {
+                      "es": "Archivo a clasificar",
+                      "en": "File to recognize"
+                  },
                   "help": {
                       "es": "Ruta donde está el archivo",
                       "en": "Path to file"
@@ -138,6 +158,10 @@
                       "es": "Carpeta donde estan las imagenes para clasificar",
                       "en": "Folder where images for recognition are"
                   },
+                  "description": {
+                      "es": "Imagenes para clasificar",
+                      "en": "Images for recognition"
+                  },
                   "id": "folderToCompare",
                   "css": "col-md-12"
               },
@@ -150,6 +174,14 @@
                   "title": {
                       "en": "Variable where to save:",
                       "es": "Variable donde guardar:"
+                  },
+                  "description": {
+                    "en": "Variable where the result will be saved",
+                    "es": "Variable donde se guardará el resultado"
+                  },
+                  "help": {
+                    "en": "Variable name without {}",
+                    "es": "Nombre de la variable sin {}"
                   },
                   "id": "varWhereToSaveIn",
                   "css": "col-md-6"

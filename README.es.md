@@ -1,0 +1,40 @@
+# Recognition
+  
+Módulo de reconocimiento y clasificación de imágenes  
+
+*Read this in other languages: [English](README.md), [Español](README.es.md).*
+
+## Como instalar este módulo
+  
+__Descarga__ e __instala__ el contenido en la carpeta 'modules' en la ruta de Rocketbot.  
+
+
+
+## Overview
+
+
+1. Clasificar imagen  
+Clasifica una imagen
+
+2. Clasificar imagen exactamente  
+Clasifica una imagen  
+
+
+
+### Changes
+Tue Aug 3 10:55:33 2021  [hidden] linux and windows merged
+Tue Aug 3 10:52:12 2021  Merge branch qa2 of github.com:rocketbot-cl/recognition into qa2
+
+----
+### OS
+
+- windows
+- linux
+- docker
+
+### Dependencies
+- [**pdf2image**](https://pypi.org/project/pdf2image/)- [**numpy**](https://pypi.org/project/numpy/)
+### License
+  
+![MIT](https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265)  
+[MIT](http://opensource.org/licenses/mit-license.ph)
